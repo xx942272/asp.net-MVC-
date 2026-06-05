@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model s14112310482.ViewModels.CatProVM
+@{
+    ViewData["Title"] = "CatPro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>依類別顯示產品</h2>
+<div class="row">
+    <div class="col-md-3">
+        <h4>類別</h4><hr />
+        @foreach (var item in Model.CategoryList)
+        {
+            <p>
+                <a href="@Url.Action("CatPro", new { cid = item.Id })">@item.Name</a>
+            </p>
+        }
+</div>
+    <div class="col-md-9">
+<table class="table">
+<tr>
+<td colspan="3"><h4>@Model.SrhName</h4></td>
+<td colspan="3"><a href="@Url.Action("Create", new {cid=@Model.SrhId })"
+class="btn btn-info">新增</a></td>
+</tr>
+@if (!Model.ProductList.Count().Equals(0) )
+{
+<tr>
+<th>編號</th>
+<th>名稱</th>
+<th>價格</th>
+<th></th>
+</tr>
+                foreach (var item in Model.ProductList)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Difficulty</td>
+                        <td>
+                            @Html.ActionLink(" 修改", "Edit", new { pid = item.Id })
+                            @Html.ActionLink(" 刪除", "Delete", new { pid = item.Id, cid = item.Id })
+                        </td>
+                    </tr>
+                }
+            }
+            @* 若資料庫中無記錄，則印出" 資料庫內查無資料"*@
+            else
+            {
+                <tr>
+                    <td colspan="4">
+                        資料庫內查無資料
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

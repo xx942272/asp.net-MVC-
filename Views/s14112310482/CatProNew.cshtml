@@ -1,0 +1,74 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model s14112310482.ViewModels.CatProVM
+@{
+    ViewData["Title"] = "CatProNew";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@section css {
+    <link rel="stylesheet" type="text/css" href="~/css/CatProNew.css">
+ }
+<header>
+    <h2>依類別顯示產品</h2>
+</header>
+<div class="row">
+    <div class="col-md-3">
+        <h4>類別</h4>
+        <nav>
+            <ul class="menu">
+                @foreach (var item in Model.CategoryList)
+                {
+                    <li>
+                        <a href="@Url.Action("CatProNew", new { cid= item.Id})">@item.Name</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-9">
+                <h4>@Model.SrhName</h4>
+            </div>
+            <div class="col-3">
+                <a href="@Url.Action("Create", new {cid=@Model.SrhId})"
+                   class="btnbtn-info">新增</a>
+            </div>
+        </div>
+        <div>
+            @if (!Model.ProductList.Count().Equals(0))
+            {
+                foreach (var item in Model.ProductList)
+                {
+                    <div class="card mb-3" style="max-width: 700px;">
+                        <div class="row g-0">
+                            <div class="col-md-7">
+                                <img src='@Url.Content("~/images/" + item.ImgF)' class="card-img-top" style="width: 100%; height: auto;" alt="圖片" />
+                            </div>
+                            <div class="col-md-5">
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Name</h5>
+                                    <p class="card-text">領域編號：@item.Id</p>
+                                    <p class="card-text">困難度：@item.Difficulty</p>
+                                    <p class="card-text">簡介：@item.Description</p>
+                                    <a href="@Url.Action("Edit2", new {pid= item.Id})"
+                                       class="btn btn-secondary">修改</a>
+                                    <a href="@Url.Action("Delete", "s14112310482",new { pid = item.Id, cid = Model.SrhId })"
+                                class="btn btn-danger btn-sm">刪除</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @*如果資料庫中為零筆記錄，則印出" 資料庫內查無資料"*@
+            else
+            {
+                <p>資料庫內查無資料</p>
+            }
+        </div>
+    </div>
+</div>

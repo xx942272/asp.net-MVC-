@@ -1,0 +1,149 @@
+﻿@model s14112310482.Models.Product
+@{
+ViewData["Title"] = "CatProNew";
+Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@section css {
+    <style>
+        body {
+            background-color: #eef7f9;
+            font-family: "Helvetica Neue", sans-serif;
+        }
+
+        h3 {
+            text-align: center;
+            color: #2c7873;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .form-horizontal {
+            max-width: 750px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .control-label {
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-control {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+            .form-control:focus {
+                border-color: #3fb6b2;
+                box-shadow: 0 0 5px rgba(63, 182, 178, 0.4);
+            }
+
+        input[type="submit"] {
+            background-color: #3fb6b2;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #2c7873;
+            }
+
+        .validation-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        a.back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #2c7873;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+    </style>
+}
+
+	
+<h3> 新增結構</h3>
+@using (Html.BeginForm("Create", "s14112310482")) @* 建立新增資料所須的表單*@
+{
+<div class="form-horizontal">
+<hr />
+<div class="form-group">
+<label for="CategoryId" class="control-label col-sm-2"> 類別 </label>
+<div class="col-sm-10">
+<select id="CategoryId" name="CategoryId" class="form-control">
+@foreach (var item in ViewBag.catList
+)
+{
+if (ViewBag.cid == item.Id
+)
+{
+<option value="@item.Id" selected="selected">@item.Name</option> }
+else
+{
+<option value="@item.Id">@item.Name</option> }
+}
+</select>
+</div>
+</div>
+		<div class="form-group">
+			<label for="DepId" class="control-label col-sm-2"> 結構名稱 </label>
+			<div class="col-sm-10">
+				@Html.TextBoxFor(model => model.Name)
+				@Html.ValidationMessageFor(model => model.Name)
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="DepId" class="control-label col-sm-2">困難度</label>
+			<div class="col-sm-10">
+				@Html.TextBoxFor(model => model.Difficulty
+								)
+				@Html.ValidationMessageFor(model => model.Difficulty
+								)
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="DepId" class="control-label col-sm-2">圖片檔案</label>
+			<div class="col-sm-10">
+				@Html.TextBoxFor(model => model.ImgF)
+				@Html.ValidationMessageFor(model => model.ImgF)
+			</div>
+		</div>
+<div class="form-group">
+<label for="DepId" class="control-label col-sm-2">簡介</label>
+<div class="col-sm-10">
+@Html.TextBoxFor(model => model.Description)
+@Html.ValidationMessageFor(model => model.Description)
+</div>
+</div>
+<div class="form-group">
+<div class="col-sm-offset-2 col-sm-10">
+<input type="submit" value=" 新增結構" />
+</div>
+</div>
+</div>
+}<hr />
+<div> @Html.ActionLink("回到列表", "CatProNew", new { cid = @ViewBag.cid })
+</div>

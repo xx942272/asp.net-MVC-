@@ -1,0 +1,53 @@
+﻿body {
+    margin-bottom: 60px;
+    background-color: #fff0f5; /* 淡粉背景 */
+}
+
+h2 {
+    width: 100%;
+    margin: 10px auto;
+    padding: 5px;
+    border: 5px solid #ff9a9e; /* 粉橘邊框 */
+    background-color: #fad0c4; /* 漸層底色建議改背景圖或 linear-gradient */
+    color: #4b0082; /* 深紫文字 */
+    font-size: 200%;
+    text-align: center;
+    line-height: 1;
+}
+
+h4 {
+    padding: 5px;
+    margin-bottom: 30px;
+    border: 1px dotted #ffa6c9; /* 粉紅點線 */
+    border-left: 10px solid #d291bc; /* 紫粉左條 */
+    color: #800080; /* 紫色文字 */
+}
+
+.menu {
+    margin: 0px;
+    padding: 0px;
+}
+
+    .menu li {
+        list-style-type: none;
+        width: 80%;
+        margin: 10px 10px;
+    }
+
+    .menu a {
+        display: block;
+        padding: 10px;
+        background: linear-gradient(to right, #fbc2eb, #a6c1ee); /* 粉紫漸層 */
+        border-radius: 12px;
+        color: #4b0082; /* 深紫字 */
+        text-decoration: none;
+        text-align: center;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .menu a:hover {
+            background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* 淡藍漸層 */
+            color: #fff;
+            transform: scale(1.05);
+        }

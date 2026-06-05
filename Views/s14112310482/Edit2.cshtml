@@ -1,0 +1,72 @@
+﻿@model s14112310482.Models.Product
+@{
+    ViewData["Title"] = "EditProduct";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>編輯結構</h2>
+
+@using (Html.BeginForm("Edit2", "s14112310482", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="hidden" asp-for="Id" />
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">類  別</span>
+        <select asp-for="CategoryId" class="form-control">
+            @foreach (var item in ViewBag.catList)
+            {
+                if (ViewBag.cid == item.Id)
+                {
+                    <option value="@item.Id" selected>@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">結構名稱</span>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">困難 度</span>
+        <input asp-for="Difficulty" class="form-control" />
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">簡  介</span>
+        <input asp-for="Description" class="form-control" />
+    </div>
+
+    <div class="input-group mb-3 col-md-4">
+        <span class="input-group-text">圖片上傳</span>
+        <input type="file" asp-for="ImgF" class="form-control" onchange="PreviewImage(this);" />
+    </div>
+
+    <div class="mb-3 col-md-4">
+        @if (!string.IsNullOrEmpty(Model.ImgF))
+        {
+            <img id="preview" src="~/images/@Model.ImgF" class="img-fluid" />
+        }
+        else
+        {
+            <img id="preview" src="~/images/a1.png" class="img-fluid" />
+        }
+    </div>
+
+    <div class="form-group">
+        <a asp-action="CatProNew" asp-route-cid="@ViewBag.cid" class="btn btn-info">
+            回到列表
+        </a>
+        <button type="submit" class="btn btn-primary">
+            更新產品
+        </button>
+    </div>
+}  @* ← 這裡才是 form 的結尾 *@
+
+
+

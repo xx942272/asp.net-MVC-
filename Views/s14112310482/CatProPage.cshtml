@@ -1,0 +1,113 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model s14112310482.ViewModels.CatProVM
+@{
+    ViewData["Title"] = "CatProNew";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@section css {
+    <link rel="stylesheet" type="text/css" href="~/css/CatProNew.css">
+ }
+<header>
+    <h2>依類別顯示產品</h2>
+</header>
+<div class="row">
+    <div class="col-md-3">
+        <h4>類別</h4>
+        <nav>
+            <ul class="menu">
+                @foreach (var item in Model.CategoryList)
+                {
+                    <li>
+                        <a href="@Url.Action("CatProNew", new { cid= item.Id})">@item.Name</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-9">
+                <h4>@Model.SrhName</h4>
+            </div>
+            <div class="col-3">
+                <a href="@Url.Action("Create", new {cid=@Model.SrhId})"
+                   class="btnbtn-info">新增</a>
+            </div>
+        </div>
+        <div>
+            @if (!Model.ProductList.Count().Equals(0))
+            {
+                foreach (var item in Model.ProductList)
+                {
+                    <div class="card mb-3" style="max-width: 700px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src='@Url.Content("~/images/" + item.ImgF)' class="d-block w-100" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Name</h5>
+                                    <p class="card-text">編號：@item.Id</p>
+                                    <p class="card-text">價格：@item.Difficulty</p>
+                                    <p class="card-text">價格：@item.Description</p>
+                                    <a href="@Url.Action("Edit2", new {pid= item.Id})"
+                                       class="btnbtn-secondary">修改</a>
+                                    <a href="@Url.Action("Delete", new { pid= item.Id, cid= item.Id})"
+                                       class="btnbtn-danger">刪除</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div>
+                    @* 若目前所在頁數大於1，則顯示上一頁與最前頁的按鈕*@
+                    @if (Model.Paging.NowPage > 1)
+                    {
+                        <a href="@Url.Action("CatProPage", new { Page = 1,cid=@Model.SrhId })"
+                           class="btn btn-outline-primary">&laquo;</a>
+                        <a href="@Url.Action("CatProPage",
+                                new { Page = Model.Paging.NowPage- 1, cid=@Model.SrhId })"
+                           class="btn btn-outline-primary">&lt;</a>
+                    }
+                    @{
+                        int showPage = 2;
+                        for (var p = (Model.Paging.NowPage); p < (Model.Paging.NowPage + showPage); p++)
+                        {
+                            if ((p < 0) || (p > Model.Paging.MaxPage))  //超出頁碼範圍
+                                break;
+                            else
+                            {
+                                if (p == Model.Paging.NowPage)
+                                {
+                                    <button type="button" class="btn btn-secondary">@p</button>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("CatProPage", new { Page = p })"
+                                       class="btn btn-primary">@p.ToString()</a>
+                                }
+                            }
+                        }
+                    }
+                    @if (Model.Paging.NowPage < Model.Paging.MaxPage)
+                    {
+                        <a href="@Url.Action("CatProPage", new { Page = Model.Paging.NowPage + 1,cid=@Model.SrhId })"
+                           class="btn btn-outline-primary">&gt;</a>
+                        <a href="@Url.Action("CatProPage", new { Page = Model.Paging.MaxPage,cid=@Model.SrhId })"
+                           class="btn btn-outline-primary">&raquo;</a>
+                    }
+                </div>
+            }
+            
+            @*如果資料庫中為零筆記錄，則印出" 資料庫內查無資料"*@
+            else
+            {
+                <p>資料庫內查無資料</p>
+            }
+        </div>
+    </div>
+</div>
